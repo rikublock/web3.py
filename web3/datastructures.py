@@ -27,6 +27,9 @@ from eth_utils import (
 from web3._utils.formatters import (
     recursive_map,
 )
+from web3._utils.type_conversion import (
+    recursive_to_tuple_if_list,
+)
 
 # Hashable must be immutable:
 # "the implementation of hashable collections requires that a
@@ -49,6 +52,7 @@ class ReadableAttributeDict(Mapping[TKey, TValue]):
         # type ignored on 46/50 b/c dict() expects str index type not TKey
         self.__dict__ = dict(dictionary)  # type: ignore
         self.__dict__.update(dict(*args, **kwargs))
+        self.__dict__ = recursive_to_tuple_if_list(self.__dict__)
 
     def __getitem__(self, key: TKey) -> TValue:
         return self.__dict__[key]  # type: ignore

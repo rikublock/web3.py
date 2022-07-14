@@ -10,6 +10,7 @@ from web3.datastructures import (
     [
         ({"b": 2, "a": 1}, {"a": 1, "b": 2}, True),
         ({"a": 1, "b": 2}, {"a": 1, "b": 0}, False),
+        ({"b": 2, "a": [1, 3]}, {"a": (1, 3), "b": 2}, True),
     ],
 )
 def test_attributedict_hashable(dict1, dict2, same_hash):
